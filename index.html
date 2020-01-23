@@ -75,9 +75,16 @@
                 </th>
                 <td v-for="(res, index) in results" v-if="results.length>0">
                   {{res}} <br>
-                  <span v-if="window.logs.length>0">
+                </td>
+              </tr>
+              <tr v-if='solution.includes("window.log(")'>
+                <th>
+                  Additional logs
+                </th>
+                <td v-for="(cas, index) in testCases.cases" v-if="cas.beforeSubmit==true">
+                  <span v-if="cas.logs.length>0">
                     Additional logs: <br>
-                    <p v-for="log in window.logs">{{log}}</p>
+                    <p v-for="log in cas.logs">{{log}}</p>
                   </span>
                 </td>
               </tr>

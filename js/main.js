@@ -102,18 +102,20 @@ else
         this.tested = false
         this.submitted = false
         this.results = []
-        window.logs=[]
+        //window.logs=[]
         //validation solution
 
         //evaluating solution
         
         if(this.testCases.type=='functional'){
             var func = new Function("return " + "function(n){ "+this.solution+" }")();
+            var result
             this.testCases.cases.forEach((cas)=>{
                 if(cas.beforeSubmit==true){
+                    result = func(cas.input.value)
+                    cas.logs = window.logs
+                    this.results.push(result);
                     window.logs=[]
-                    console.log(cas)
-                    this.results.push(func(cas.input.value));
                 }
             })
         }
