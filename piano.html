@@ -12,9 +12,7 @@
   </head>
   <body>
   	<div class="container" id="app" v-cloak 
-      style='[v-cloak] > * { display:none }[v-cloak]::before { content: "loading…" }'
-
-      >
+      style='[v-cloak] > * { display:none }[v-cloak]::before { content: "loading…" }'>
       <h1 class="mt-3">JS Checker. <span v-html="courseName"></span>. <span v-html="taskName"></span></h1>
       <hr>
       <div class="row">
@@ -46,19 +44,22 @@
           </textarea>
           <span class="text-monospace" v-html="postfix()"></span>
           <br>
-          <button class="btn btn-success" @click="test">Test</button>
+          <button class="btn btn-success" @click="run" v-if="!alreadyRun"
+          >Run</button>
+          <button class="btn btn-danger" @click="onRunStopped" v-else="alreadyRun"
+          >Stop</button>
           <button class="btn btn-primary" @click="submit">Submit</button>
           <hr>
         </div>
-  	</div>
-  	<section id="wrap">
+  	</div>  	
+  <section id="wrap">
     <!--<header>
       <h1>JS Piano</h1>
       <h2>Use your keyboard. Hover for hints.</h2>
     </header>-->
     <section id="main">
-      <div class="nowplaying"></div>
-      <div class="keys" @keydown="debug">
+      <div class="nowplaying text-center"></div>
+      <div class="keys">
         <div data-key="65" class="key" data-note="C">
             <span class="hints text-center">A</span>
         </div>
@@ -131,6 +132,50 @@
       <audio preload=none data-key="186" src="http://carolinegabriel.com/demo/js-keyboard/sounds/056.wav"></audio>
       </section>
   </section>
+  <br>
+  <div class="row" v-if="tested == true">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <tr>
+                <th>
+                  Case #
+                </th>
+                <td v-for="(cas, index) in testCases.cases" v-if="cas.beforeSubmit==true">
+                  {{index+1}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Input
+                </th>
+                <td v-for="(cas, index) in testCases.cases" v-if="cas.beforeSubmit==true">
+                  {{cas.input.value}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Result
+                </th>
+                <td v-for="(res, index) in results" v-if="results.length>0">
+                  {{res}} <br>
+                </td>
+              </tr>
+              <tr v-if='solution.includes("window.log(")'>
+                <th>
+                  Additional logs
+                </th>
+                <td v-for="(cas, index) in testCases.cases" v-if="cas.beforeSubmit==true">
+                  <span v-if="cas.logs.length>0">
+                    Additional logs: <br>
+                    <p v-for="log in cas.logs">{{log}}</p>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </div>  
+        </div>
+      </div>
   	</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
