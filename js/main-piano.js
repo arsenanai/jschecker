@@ -35,7 +35,7 @@ return result`,
                 beforeSubmit: true,
     			input:{
     				type: 'event',
-    				value: {keycode:'65'},
+    				value: {keyCode:65},
     			},
     			output:{
     				type: 'string',
@@ -46,7 +46,7 @@ return result`,
                 beforeSubmit: true,
                 input:{
                     type: 'event',
-                    value: {keycode:'70'},
+                    value: {keyCode:70},
                 },
                 output:{
                     type: 'string',
@@ -57,7 +57,7 @@ return result`,
                 beforeSubmit: true,
                 input:{
                     type: 'event',
-                    value: {keycode:'186'},
+                    value: {keyCode:186},
                 },
                 output:{
                     type: 'string',
@@ -87,8 +87,7 @@ return result`,
     },
     test: function(){
         //resetting previous tests
-        /*this.beforeTestInitiated()
-        //window.logs=[]
+        this.beforeTestInitiated()
         //validation solution
 
         //evaluating solution
@@ -97,7 +96,7 @@ return result`,
             var result
             this.testCases.cases.forEach((cas)=>{
                 if(cas.beforeSubmit==true){
-                    result = func(cas.input.value)
+                    result = this.function(cas.input.value)
                     cas.logs = window.logs
                     this.results.push(result);
                     window.logs=[]
@@ -106,7 +105,7 @@ return result`,
         }
         this.onTestInitiated()
         if(this.testManualStop == false)
-            this.onTestStopped()*/
+            this.onTestStopped()
     },
     commaSeparated: function(a/*array*/,attr/*field*/){
         return a.map((e)=>e[attr]).join(", ")
@@ -118,8 +117,6 @@ return result`,
         }
     },
     beforeRunInitiated: function(){
-        this.submitted = false
-        this.results = []
         this.alreadyRun = true
     },
     onRunInitiated: function(){
@@ -132,6 +129,18 @@ return result`,
             window.removeEventListener("keydown", this.function)
         }
         this.alreadyRun = false
+    },
+    beforeTestInitiated: function(){
+        this.submitted = false
+        this.results = []
+        this.tested = true
+        window.logs=[]
+    },
+    onTestInitiated: function(){
+
+    },
+    onTestStopped: function(){
+        this.tested = false
     },
     /*hintsOn: function(e, index) {
       e.setAttribute("style", "transition-delay:" + index * 50 + "ms");

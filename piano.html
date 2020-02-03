@@ -44,10 +44,12 @@
           </textarea>
           <span class="text-monospace" v-html="postfix()"></span>
           <br>
-          <button class="btn btn-success" @click="run" v-if="!alreadyRun"
-          >Run</button>
+          <button class="btn btn-default" @click="run" v-if="!alreadyRun"
+          >Play</button>
           <button class="btn btn-danger" @click="onRunStopped" v-else="alreadyRun"
           >Stop</button>
+          <button class="btn btn-success" @click="test"
+          >Test</button>
           <button class="btn btn-primary" @click="submit">Submit</button>
           <hr>
         </div>
